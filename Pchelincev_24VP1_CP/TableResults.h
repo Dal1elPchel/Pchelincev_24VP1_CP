@@ -22,7 +22,7 @@ public:
 
 	TableResults();
 	void setStructureValues(DataStructure structureName, const vector<string>& values);
-	void displayTable(int power1, int power2) const;
+	void displayTable() const;
 	const vector<string>& getOperations() const;
 	static vector<DataStructure> getAllStructures();
 	static string getStructureName(DataStructure ds);

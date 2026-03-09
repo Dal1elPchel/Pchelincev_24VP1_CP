@@ -134,13 +134,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Set.h" />
-    <ClInclude Include="list_set.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="SetContainer.h" />
     <ClInclude Include="SetList.h" />
     <ClInclude Include="SetString.h" />
     <ClInclude Include="SetUnorderedMultiset.h" />
     <ClInclude Include="TableResults.h" />
+    <ClInclude Include="Tester.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

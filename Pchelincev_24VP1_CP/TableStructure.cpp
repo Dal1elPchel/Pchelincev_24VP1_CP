@@ -33,7 +33,7 @@ void TableResults::setStructureValues(DataStructure structureName, const vector<
 	}
 }
 
-void TableResults::displayTable(int power1, int power2) const
+void TableResults::displayTable() const
 {
 	const int FIRST_WIDTH_COL = 25;
 	const int WIDTH_COL = 20;

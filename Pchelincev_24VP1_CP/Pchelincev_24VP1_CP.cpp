@@ -22,7 +22,7 @@ int main()
 	cout << "  B: ";
 	cin >> power2;
 	
-	table.displayTable(power1, power2);
+	table.displayTable();
 
 	return 0;
 }
