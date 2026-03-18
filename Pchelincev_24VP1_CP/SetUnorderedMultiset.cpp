@@ -4,6 +4,9 @@
 #include <ctime>
 #include <sstream>
 #include <unordered_set>
+#include <vector>
+#include <chrono>
+#include <string>
 
 using namespace std;
 
@@ -199,4 +202,82 @@ SetUnorderedMultiset* SetUnorderedMultiset::CreateEmpty()
 SetUnorderedMultiset* SetUnorderedMultiset::Create(int count, int min, int max) 
 {
     return new SetUnorderedMultiset(count, min, max);
+}
+
+std::vector<std::string> SetUnorderedMultiset::getAllResUnor(int count1, int count2)
+{
+    auto start = chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+    vector<string> values;
+
+    start = chrono::high_resolution_clock::now();
+    SetUnorderedMultiset* SetA = new SetUnorderedMultiset(count1, 0, 100);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    int power = SetA->GetPower();
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    bool isSubAA = SetA->IsSubset(SetA);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    SetUnorderedMultiset* SetB = new SetUnorderedMultiset(count2, 0, 100);
+    start = chrono::high_resolution_clock::now();
+    bool isSubAB = SetA->IsSubset(SetB);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    bool isAA = SetA->IsEquivalent(SetA);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    bool isAB = SetA->IsEquivalent(SetB);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    SetUnorderedMultiset* SetC = SetA->Union(SetB);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    SetC = SetA->Intersection(SetB);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    SetC = SetA->Difference(SetB);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    SetC = SetB->Difference(SetA);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    start = chrono::high_resolution_clock::now();
+    SetC = SetB->SymmetricDifference(SetA);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    values.push_back(to_string(duration.count()));
+
+    return values;
 }

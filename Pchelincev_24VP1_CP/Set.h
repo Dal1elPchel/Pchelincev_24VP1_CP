@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include "string"
+#include <vector>
 
 class Set {
 private:
@@ -30,4 +31,5 @@ public:
 
     static Set* CreateEmpty();
     static Set* Create(int count, int min, int max);
+    static std::vector<std::string> getAllResSet(int count1, int count2);
 };

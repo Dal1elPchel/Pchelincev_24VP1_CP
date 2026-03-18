@@ -131,6 +131,7 @@
     <ClCompile Include="SetString.cpp" />
     <ClCompile Include="SetUnorderedMultiset.cpp" />
     <ClCompile Include="TableStructure.cpp" />
+    <ClCompile Include="Tester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Set.h" />

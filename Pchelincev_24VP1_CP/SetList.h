@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <string>
+#include <vector>
 
 class SetList 
 {
@@ -27,4 +28,5 @@ public:
 
     static SetList* CreateEmpty();
     static SetList* Create(int count, int min, int max);
+    static std::vector<std::string> getAllResList(int count1, int count2);
 };

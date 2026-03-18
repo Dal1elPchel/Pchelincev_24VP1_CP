@@ -6,7 +6,7 @@ class Tester
 private:
 	int power1;
 	int power2;
-	TableResults currentTable;
+	TableResults* currentTable;
 public:
 	Tester();
 	Tester(int p1, int p2);

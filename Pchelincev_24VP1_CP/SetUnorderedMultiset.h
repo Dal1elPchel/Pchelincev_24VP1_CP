@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_set>
 #include <string>
+#include <vector>
 
 class SetUnorderedMultiset {
 private:
@@ -26,4 +27,6 @@ public:
 
     static SetUnorderedMultiset* CreateEmpty();
     static SetUnorderedMultiset* Create(int count, int min, int max);
+    static std::vector<std::string> getAllResUnor(int count1, int count2);
+
 };

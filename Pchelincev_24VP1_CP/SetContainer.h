@@ -1,6 +1,7 @@
 #pragma once
 #include <set>
 #include <string>
+#include <vector>
 
 class SetContainer {
 private:
@@ -26,4 +27,5 @@ public:
 
     static SetContainer* CreateEmpty();
     static SetContainer* Create(int count, int min, int max);
+    static std::vector<std::string> getAllResSetContainer(int count1, int count2);
 };

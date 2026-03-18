@@ -104,6 +104,7 @@ vector<string> TableResults::initializeOperations()
 		"Объединение",
 		"Пересечение",
 		"Разность A-B",
+		"Разность B-A",
 		"Симметричная разность"
 	};
 }

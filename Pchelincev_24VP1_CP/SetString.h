@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class SetString {
 private:
@@ -25,4 +26,6 @@ public:
 
     static SetString* CreateEmpty();
     static SetString* Create(int count, int min, int max);
+    static std::vector<std::string> getAllResString(int count1, int count2);
+
 };

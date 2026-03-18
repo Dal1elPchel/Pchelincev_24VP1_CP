@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "string"
+#include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -55,40 +57,13 @@ Node* add(Node* firstElem, int value)
 	return newNode;
 }
 
-Node* create(int count, int min, int max, bool isA)
+Node* create(int count, int min, int max)
 {
 
-	int avaliableCount = 0;
-	if (isA)
+	if (count > (max - min + 1))
 	{
-		int minAvaliable = min;
-		if (minAvaliable % 2 != 0) minAvaliable++;
-
-		int maxAvaliable = max;
-		if (maxAvaliable % 2 != 0) maxAvaliable--;
-
-		if (minAvaliable <= maxAvaliable) avaliableCount = (maxAvaliable - minAvaliable) / 2 + 1;
-	}
-	else
-	{
-		int minAvaliable = min;
-		int remainder = minAvaliable % 4;
-		if (remainder != 0) minAvaliable += (4 - remainder);
-
-		int maxAvaliable = max;
-		remainder = maxAvaliable % 4;
-		if (remainder != 0) maxAvaliable -= remainder;
-
-		if (minAvaliable <= maxAvaliable) avaliableCount = (maxAvaliable - minAvaliable) / 4 + 1;
-	}
-
-	if (count > avaliableCount)
-	{
-		string condition = isA ? "четных" : "кратных 4";
 		throw string{ "Невозможно создать множество: в диапазоне [" +
-					  to_string(min) + ", " + to_string(max) + "] недостаточно " +
-					  condition + " чисел (нужно " + to_string(count) +
-					  ", доступно " + to_string(avaliableCount) + ")" };
+					  to_string(min) + ", " + to_string(max)};
 	}
 
 	Node* newNode = nullptr;
@@ -97,16 +72,11 @@ Node* create(int count, int min, int max, bool isA)
 	{
 		int randValue = min + rand() % (max - min + 1);
 
-		bool cond = isA ? (randValue % 2 == 0) : (randValue % 4 == 0);
+		newNode = add(newNode, randValue);
 
-		if (cond)
+		if (newNode->value == randValue)
 		{
-			newNode = add(newNode, randValue);
-
-			if (newNode->value == randValue)
-			{
-				count--;
-			}
+			count--;
 		}
 
 	}
@@ -285,4 +255,82 @@ Node* Symmetric_Difference(Node* firstNode, Node* secondNode)
 	deleteNode(intersectionNode);
 
 	return result;
+}
+
+vector<string> getAllResNode(int count1, int count2)
+{
+	auto start = chrono::high_resolution_clock::now();
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+	vector<string> values;
+
+	start = chrono::high_resolution_clock::now();
+	Node* nodeSetA = create(count1, 0, 100);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	int power = getSize(nodeSetA);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	bool isSubAA = isSubNode(nodeSetA, nodeSetA);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	Node* nodeSetB = create(count2, 0, 100);
+	start = chrono::high_resolution_clock::now();
+	bool isSubAB = isSubNode(nodeSetA, nodeSetB);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	bool isAA = isEquivalent(nodeSetA, nodeSetA);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	bool isAB = isEquivalent(nodeSetA, nodeSetB);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	Node* nodeSetC = Union(nodeSetA, nodeSetB);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	nodeSetC = Intersection(nodeSetA, nodeSetB);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	nodeSetC = Difference(nodeSetA, nodeSetB);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	nodeSetC = Difference(nodeSetB, nodeSetA);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	start = chrono::high_resolution_clock::now();
+	nodeSetC = Symmetric_Difference(nodeSetB, nodeSetA);
+	end = std::chrono::high_resolution_clock::now();
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	values.push_back(to_string(duration.count()));
+
+	return values;
 }
